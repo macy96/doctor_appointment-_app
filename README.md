@@ -63,4 +63,8 @@ http-server
   26 git remote remove origin
   27 git remote -v
   28 git remote add origin https://github.com/macy96/doctor_appointment_app.git
+<<<<<<< HEAD
   29 git remote -v
+=======
+  29 git remote -v
+>>>>>>> 9a1caadcd387f44661579f2692381119f28f0a90
