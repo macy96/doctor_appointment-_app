@@ -8,43 +8,40 @@ app = Flask(__name__)
 CORS(app)
 
 # map as database 
-countries = [
-    {"id": 1, "name": "Thailand", "capital": "Bangkok", "area": 513120},
-    {"id": 2, "name": "Australia", "capital": "Canberra", "area": 7617930},
-    {"id": 3, "name": "Egypt", "capital": "Cairo", "area": 1010408},
+appointments = [
+    {"appointment_number":1, "name":"Manas","age":35,"doctor":"optimetrist","doctorname":"Mr Laurent"}
 ]
 
 # Get all appointments
 @app.get("/appointment")
-def get_countries():
-    print("get countries called: {}".format(countries))
-    return jsonify(countries)
+def get_appointments():
+    print("get appointments called: {}".format(appointments))
+    return jsonify(appointments)
 
 # Get all appointments
-@app.get("/appointment/{id}")
-def get_appointment_by_id(id):
-    print("get countries called: {}".format(countries))
+@app.get("/appointment/{appointment_number_param}")
+def get_appointment_by_id(appointment_number_param):
+    print("get appointments called: {}".format(appointments))
 
-    for country in countries:
-        if country["id"] == id:
-            return jsonify(country)
-    return jsonify({"error": "Country not found"})
-    
-    return jsonify(countries)
+    for appointment in appointments:
+        if appointment["appointment_number"] == appointment_number_param:
+            return jsonify(appointment)
+    return jsonify({"error": "appointment not found"})
 
 # Generate an unique appointment id
-def _find_next_id():
-    return max(country["id"] for country in countries) + 1
+def _find_next_id(): 
+    print("appointments: {}".format(appointments))
+    return max(appointment["appointment_number"] for appointment in appointments) + 1
 
 # Create a new appointment
 @app.route('/appointment', methods=["POST"])
-def add_country():
+def create_appointment():
     if request.is_json:
-        country = request.get_json()
-        country["id"] = _find_next_id()
-        countries.append(country)
-        print("countries: {}".format(countries))
-        return country, 201
+        new_appointment = request.get_json()
+        new_appointment["appointment_number"] = _find_next_id()
+        appointments.append(new_appointment)
+        print("appointments: {}".format(appointments))
+        return new_appointment, 201
     return {"error": "Request must be JSON"}, 415
 
 if __name__ == "__main__":

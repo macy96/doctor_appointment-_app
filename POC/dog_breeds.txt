@@ -1,0 +1,8 @@
+dog-type1
+dog-type2
+dog-type3
+dog-type4
+dog-type1
+dog-type2
+dog-type3
+dog-type4

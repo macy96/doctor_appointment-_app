@@ -43,13 +43,15 @@
                         
                         <div>
                             <label for="data-input">Full Name</label>
-                            <input type="text" id="data-input">
+                            <input type="text" id="fullnametxt">
                         </div>
+                        <br>
 
                         <div>
                            <label for="data-input">Age</label>
-                            <input type="text" id="data-input3">
+                            <input type="text" id="agetxt">
                         </div>
+                        <br>
 
                         <div>
                             <!-- <form action="/action_page.php"></form> -->
@@ -62,18 +64,19 @@
                                 <option value="pshycologist">psycologist</option>
                             </select>
                         </div>
+                        <br>
                         <div>
                             <label for="data-input">Docor name </label>
                             <!-- <input type="text" id="data-input2"> -->
-                            <select name="doctor name" id="doctor name">
-                                <option value="mr laurent">mr laurent</option>
-                                <option value="mrs nancy">darmatology</option>
-                                <option value="mrs shivani jain">cardiologist</option>  
-                                <option value="mr shiv jain">psycologist</option>
+                            <select name="doctor name" id="doctorname">
+                                <option value="Mr Laurent">Mr Laurent</option>
+                                <option value="Mrs Nancy">Mrs Nancy</option>
+                                <option value="Mrs Shivani Jain">Mrs Shivani Jain</option>  
+                                <option value="Mr Shiv Jain">Mr Shiv Jain</option>
                             </select>
                         </div>
                         <br>
-                        <button onclick="sendData()">Create appointment</button>
+                        <button onclick="createAppointment()">Create appointment</button>
                         <br>
                         <div>
                             <div id="sent-data-container"></div>
@@ -100,7 +103,15 @@
                 <div class="row gx-4 justify-content-center">
                     <div class="col-lg-8">
                         <h2>Services we offer</h2>
-                        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut optio velit inventore, expedita quo laboriosam possimus ea consequatur vitae, doloribus consequuntur ex. Nemo assumenda laborum vel, labore ut velit dignissimos.</p>
+                        <ol>
+                        <li>Covid test center</li>
+                         <li>Yoga teacher</li>
+                        <li>Finding nurses</li>
+                       </ol> 
+
+
+ 
+
                     </div>
                 </div>
             </div>
@@ -111,7 +122,9 @@
                 <div class="row gx-4 justify-content-center">
                     <div class="col-lg-8">
                         <h2>Contact us</h2>
-                        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero odio fugiat voluptatem dolor, provident officiis, id iusto! Obcaecati incidunt, qui nihil beatae magnam et repudiandae ipsa exercitationem, in, quo totam.</p>
+                        <p class="lead">If You Have Any Question Please Reach Out To Us Over Email
+                                        "finddoctor.bestdoctorever@gmail.com"</p>
+                            
                     </div>
                 </div>
             </div>
@@ -172,16 +185,22 @@
             }
         }
     
-        function sendData() {
+        function createAppointment() {
+            //capture the user data from the frontend
             fullname = document.getElementById('fullnametxt').value;
-            age = document.getElementById('ageTxt').value;
-            dropdown = document.getElementById('dropdowntxt').value;
+            age = document.getElementById('agetxt').value;
+            doctor = document.getElementById('doctor').value;
+            doctorname = document.getElementById('doctorname').value;
+            alert(fullname + " " + age + " " + doctor+ " "+doctorname )
 
+            // validating data
             if (!fullname) {
                 console.log("Data is empty.");
                 return;
             }
             console.log("Sending data: " + fullname);
+
+            // sending user enter data to the backend by calling POST /appopintment API
             xhr = getXmlHttpRequestObject();
             xhr.onreadystatechange = sendDataCallback;
             // asynchronous requests
@@ -193,8 +212,10 @@
             var x = JSON.stringify({
                 "name": fullname, // user input
                 "age": age,
-                "dropdown":dropdown,
+                "doctor":doctor,
+                "doctorname":doctorname
             });
+            console.log(x)
             xhr.send(x);
         }
         (function () {
