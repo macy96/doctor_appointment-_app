@@ -20,8 +20,35 @@
 
 import csv
 
-with open('employee_file.csv', mode='w') as employee_file:
-    employee_writer = csv.writer(employee_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+# with open('employee_file.csv', mode='a') as employee_file:
+#     employee_writer = csv.writer(employee_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+#     {"appointment_number":1, "name":"Manas","age":35,"doctor":"optimetrist","doctorname":"Mr Laurent"}
 
-    employee_writer.writerow(['John Smith', 'Accounting', 'November'])
-    employee_writer.writerow(['Erica Meyers', 'IT', 'March'])
+
+#     employee_writer.writerow(['John Smith', 'Accounting', 'November'])
+#     employee_writer.writerow(['Erica Meyers', 'IT', 'March'])
+
+
+import csv
+  
+# employee_info = ['appointment_number', 'name', 'age','doctor','doctorname']
+  
+# new_dict = {"appointment_number":1, "name":"Manas","age":35,"doctor":"optimetrist","doctorname":"Mr Laurent"}
+
+  
+# with open('doctor_appointment_database.csv', 'a', newline='') as csvfile:
+#     writer = csv.DictWriter(csvfile, fieldnames = employee_info)
+#     writer.writeheader()
+#     writer.writerow(new_dict)
+
+# with open("E:\doctor-appointment-main\backend\doctor_appointment_database.csv", 'r') as csvfile:
+#     reader = csv.DictReader(csvfile)
+#     filecontent = reader.readlines()
+#     print("FileContent: {}".format(filecontent))
+
+import csv
+with open(r"E:\doctor-appointment-main\backend\doctor_appointment_database.csv", newline='') as csvfile:
+    reader = csv.DictReader(csvfile)
+    # print("FileContent: {}".format(reader.readlines()))
+    print([row for row in reader])
+    #     print(row)

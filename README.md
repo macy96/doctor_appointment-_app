@@ -2,6 +2,7 @@
 
 This repository has a very basic example of backend and frontend communication. The backend is written in Python using the Flask framework and the frontend is HTML with plain JavaScript.
 
+![FrontEndScreenshot](doc_appointment_app_frontend_snapshot.png)
 
 ## Set up project instruction 
 
@@ -32,5 +33,6 @@ http-server
 ```
 
 `http://localhost:8080`
+
 
 

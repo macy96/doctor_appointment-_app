@@ -2,10 +2,16 @@ from flask import Flask, request, jsonify
 import flask
 import json
 from flask_cors import CORS
-
+import csv
 
 app = Flask(__name__)
 CORS(app)
+
+# Write the header only once
+appointment_table_header = ['appointment_number', 'name', 'age','doctor','doctorname']
+with open('doctor_appointment_database.csv', 'a', newline='') as csvfile:
+    writer = csv.DictWriter(csvfile, fieldnames = appointment_table_header)
+    writer.writeheader()
 
 # map as database 
 appointments = [
@@ -16,7 +22,14 @@ appointments = [
 @app.get("/appointment")
 def get_appointments():
     print("get appointments called: {}".format(appointments))
-    return jsonify(appointments)
+
+    # Read it from the csv database
+    with open(r"E:\doctor-appointment-main\backend\doctor_appointment_database.csv", newline='') as csvfile:
+        reader = csv.DictReader(csvfile)
+        # print("FileContent: {}".format(reader.readlines()))
+        all_appointments_from_db = [row for row in reader]
+        print(all_appointments_from_db)
+        return jsonify(all_appointments_from_db)
 
 # Get all appointments
 @app.get("/appointment/{appointment_number_param}")
@@ -41,8 +54,18 @@ def create_appointment():
         new_appointment["appointment_number"] = _find_next_id()
         appointments.append(new_appointment)
         print("appointments: {}".format(appointments))
+        add_new_appointment_to_database(new_appointment)
         return new_appointment, 201
     return {"error": "Request must be JSON"}, 415
+
+def add_new_appointment_to_database(new_appointment):
+    # new_dict = {"appointment_number":1, "name":"Manas","age":35,"doctor":"optimetrist","doctorname":"Mr Laurent"}
+
+    with open('doctor_appointment_database.csv', 'a', newline='') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames = appointment_table_header)
+        # writer.writeheader()
+        writer.writerow(new_appointment)
+
 
 if __name__ == "__main__":
     port_number = 6969
