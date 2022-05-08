@@ -4,6 +4,8 @@ This repository has a very basic example of backend and frontend communication. 
 
 ![FrontEndScreenshot](doc_appointment_app_frontend_snapshot.png)
 
+Date: May 8, 2022
+
 ## Set up project instruction 
 
 Install the requirements for the backend by first creating a virtual environment in the backend directory:
